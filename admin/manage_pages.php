@@ -11,7 +11,6 @@ if (!Auth::isLoggedIn()) {
 
 $pageManager = new PageManager($link);
 
-// Додавання підсторінки
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dodaj'])) {
     if ($pageManager->DodajNowaPodstrone($_POST)) {
         $success = "Nowa podstrona została dodana.";
@@ -20,7 +19,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['dodaj'])) {
     }
 }
 
-// Видалення підсторінки
 if (isset($_GET['delete'])) {
     if ($pageManager->UsunPodstrone($_GET['delete'])) {
         $success = "Podstrona została usunięta.";
@@ -51,7 +49,7 @@ if (isset($_GET['delete'])) {
         <?php $pageManager->ListaPodstron(); ?>
         <div class="actions">
             <a class="button add-page" href="add_page.php">Dodaj nową podstronę</a>
-            <a class="button logout" href="logout.php">Wyloguj</a>
+            <a class="button logout" href="index.php">Powrót</a>
         </div>
     </main>
     <footer>

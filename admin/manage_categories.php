@@ -11,7 +11,6 @@ if (!Auth::isLoggedIn()) {
 
 $categoryManager = new CategoryManager($link);
 
-// Видалення категорії
 if (isset($_GET['delete'])) {
     if ($categoryManager->UsunKategorie($_GET['delete'])) {
         $success = "Kategoria została usunięta.";
@@ -76,7 +75,7 @@ if (isset($_GET['delete'])) {
 
         <div class="actions">
             <a class="button add-category" href="add_category.php">Dodaj nową kategorię</a>
-            <a class="button logout" href="logout.php">Wyloguj</a>
+            <a class="button logout" href="index.php">Powrót</a>
         </div>
     </main>
     <footer>

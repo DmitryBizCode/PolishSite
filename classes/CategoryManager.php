@@ -6,14 +6,12 @@ class CategoryManager {
         $this->link = $dbConnection;
     }
 
-    /** Додати нову категорію */
     public function DodajKategorie($nazwa, $matka = 0) {
         $stmt = $this->link->prepare("INSERT INTO categories (nazwa, matka) VALUES (?, ?)");
         $stmt->bind_param('si', $nazwa, $matka);
         return $stmt->execute();
     }
 
-    /** Видалити категорію */
     public function UsunKategorie($id) {
         // Видалення підкатегорій
         $stmt = $this->link->prepare("DELETE FROM categories WHERE matka = ?");
@@ -26,14 +24,12 @@ class CategoryManager {
         return $stmt->execute();
     }
 
-    /** Редагувати категорію */
     public function EdytujKategorie($id, $nazwa, $matka) {
         $stmt = $this->link->prepare("UPDATE categories SET nazwa = ?, matka = ? WHERE id = ?");
         $stmt->bind_param('sii', $nazwa, $matka, $id);
         return $stmt->execute();
     }
 
-    /** Показати категорії */
     public function PokazKategorie() {
         $result = $this->link->query("SELECT * FROM categories ORDER BY matka ASC, nazwa ASC");
         $categories = $result->fetch_all(MYSQLI_ASSOC);
@@ -55,7 +51,6 @@ class CategoryManager {
     }
 
 
-    /** Вивести категорії рекурсивно */
     private function wyswietlKategorie($categories, $matka, $poziom = 0) {
         foreach ($categories as $category) {
             if ($category['matka'] == $matka) {

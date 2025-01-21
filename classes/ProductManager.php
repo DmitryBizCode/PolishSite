@@ -6,38 +6,39 @@ class ProductManager {
         $this->link = $dbConnection;
     }
 
-    /** Додати новий продукт */
-    public function addProduct($tytul, $opis, $data_wygasniecia, $cena_netto, $podatek_vat, $ilosc_dostepnych_sztuk, $status_dostepnosci, $kategoria, $gabaryt_produktu, $zdjecie_url) {
-        $stmt = $this->link->prepare("INSERT INTO product (tytul, opis, data_wygasniecia, cena_netto, podatek_vat, ilosc_dostepnych_sztuk, status_dostepnosci, kategoria, gabaryt_produktu, zdjecie_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-        $stmt->bind_param('sssdidssss', $tytul, $opis, $data_wygasniecia, $cena_netto, $podatek_vat, $ilosc_dostepnych_sztuk, $status_dostepnosci, $kategoria, $gabaryt_produktu, $zdjecie_url);
+    public function addProduct($title, $description, $expiry_date, $net_price, $vat_rate, $stock, $availability_status, $category_id, $dimensions, $image_url) {
+        $stmt = $this->link->prepare("
+            INSERT INTO products (title, description, expiry_date, net_price, vat_rate, stock, availability_status, category_id, dimensions, image_url)
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ");
+        $stmt->bind_param('sssddiisds', $title, $description, $expiry_date, $net_price, $vat_rate, $stock, $availability_status, $category_id, $dimensions, $image_url);
         return $stmt->execute();
     }
 
-    /** Видалити продукт */
     public function deleteProduct($id) {
-        $stmt = $this->link->prepare("DELETE FROM product WHERE id = ?");
+        $stmt = $this->link->prepare("DELETE FROM products WHERE id = ?");
         $stmt->bind_param('i', $id);
         return $stmt->execute();
     }
 
-    /** Редагувати продукт */
-    public function editProduct($id, $tytul, $opis, $data_wygasniecia, $cena_netto, $podatek_vat, $ilosc_dostepnych_sztuk, $status_dostepnosci, $kategoria, $gabaryt_produktu, $zdjecie_url) {
-        $stmt = $this->link->prepare("UPDATE product SET tytul = ?, opis = ?, data_wygasniecia = ?, cena_netto = ?, podatek_vat = ?, ilosc_dostepnych_sztuk = ?, status_dostepnosci = ?, kategoria = ?, gabaryt_produktu = ?, zdjecie_url = ? WHERE id = ?");
-        $stmt->bind_param('sssdidssssi', $tytul, $opis, $data_wygasniecia, $cena_netto, $podatek_vat, $ilosc_dostepnych_sztuk, $status_dostepnosci, $kategoria, $gabaryt_produktu, $zdjecie_url, $id);
+    public function editProduct($id, $title, $description, $expiry_date, $net_price, $vat_rate, $stock, $availability_status, $category_id, $dimensions, $image_url) {
+        $stmt = $this->link->prepare("
+        UPDATE products
+        SET title = ?, description = ?, expiry_date = ?, net_price = ?, vat_rate = ?, stock = ?, availability_status = ?, category_id = ?, dimensions = ?, image_url = ?
+        WHERE id = ?
+    ");
+        $stmt->bind_param('sssddiisisi', $title, $description, $expiry_date, $net_price, $vat_rate, $stock, $availability_status, $category_id, $dimensions, $image_url, $id);
         return $stmt->execute();
     }
 
-    /** Показати всі продукти */
+
     public function showProducts() {
-        $result = $this->link->query("SELECT * FROM product ORDER BY data_utworzenia DESC");
+        $result = $this->link->query("
+            SELECT products.*, categories.nazwa AS category_name
+            FROM products
+            JOIN categories ON products.category_id = categories.id
+            ORDER BY created_at DESC
+        ");
         return $result->fetch_all(MYSQLI_ASSOC);
-    }
-
-    /** Отримати продукт за ID */
-    public function getProductById($id) {
-        $stmt = $this->link->prepare("SELECT * FROM product WHERE id = ?");
-        $stmt->bind_param('i', $id);
-        $stmt->execute();
-        return $stmt->get_result()->fetch_assoc();
     }
 }

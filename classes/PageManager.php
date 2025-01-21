@@ -6,7 +6,6 @@ class PageManager {
         $this->link = $dbConnection;
     }
 
-    /** Список підсторінок */
     public function ListaPodstron() {
         $result = $this->link->query("SELECT id, page_title FROM page_list");
         if ($result->num_rows > 0) {
@@ -35,7 +34,6 @@ class PageManager {
         }
     }
 
-    /** Додавання нової підсторінки */
     public function DodajNowaPodstrone($data) {
         $status = isset($data['status']) ? 1 : 0;
         $stmt = $this->link->prepare("INSERT INTO page_list (page_title, page_content, status) VALUES (?, ?, ?)");
@@ -44,7 +42,6 @@ class PageManager {
         return $stmt->execute();
     }
 
-    /** Редагування підсторінки */
     public function EdytujPodstrone($id) {
         $stmt = $this->link->prepare("SELECT page_title, page_content, status FROM page_list WHERE id = ?");
         $stmt->bind_param('i', $id);
@@ -57,7 +54,6 @@ class PageManager {
         return null;
     }
 
-    /** Збереження змін підсторінки */
     public function ZapiszPodstrone($data) {
         $status = isset($data['status']) ? 1 : 0;
         $stmt = $this->link->prepare("UPDATE page_list SET page_title = ?, page_content = ?, status = ? WHERE id = ?");
@@ -66,7 +62,6 @@ class PageManager {
         return $stmt->execute();
     }
 
-    /** Видалення підсторінки */
     public function UsunPodstrone($id) {
         $stmt = $this->link->prepare("DELETE FROM page_list WHERE id = ?");
         $stmt->bind_param('i', $id);

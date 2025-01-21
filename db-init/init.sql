@@ -9,21 +9,23 @@ CREATE TABLE categories (
 );
 
 
-CREATE TABLE product (
+CREATE TABLE products (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    tytul VARCHAR(255) NOT NULL,
-    opis TEXT NOT NULL,
-    data_utworzenia TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    data_modyfikacji TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    data_wygasniecia DATE NOT NULL,
-    cena_netto DECIMAL(10,2) NOT NULL,
-    podatek_vat DECIMAL(5,2) NOT NULL,
-    ilosc_dostepnych_sztuk INT NOT NULL,
-    status_dostepnosci ENUM('dostepny', 'niedostepny', 'wycofany') NOT NULL,
-    kategoria VARCHAR(255) NOT NULL,
-    gabaryt_produktu VARCHAR(255) NOT NULL,
-    zdjecie_url VARCHAR(255)
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    expiry_date DATETIME,
+    net_price DECIMAL(10, 2) NOT NULL,
+    vat_rate DECIMAL(5, 2) NOT NULL DEFAULT 0.23,
+    stock INT DEFAULT 0,
+    availability_status BOOLEAN DEFAULT TRUE,
+    category_id INT NOT NULL,
+    dimensions VARCHAR(100),
+    image_url VARCHAR(255),
+    FOREIGN KEY (category_id) REFERENCES categories(id)
 );
+
 
 CREATE TABLE page_list (
     id INT AUTO_INCREMENT PRIMARY KEY,

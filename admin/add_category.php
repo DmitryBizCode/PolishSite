@@ -11,7 +11,6 @@ if (!Auth::isLoggedIn()) {
 
 $categoryManager = new CategoryManager($link);
 
-// Додавання категорії
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
     $nazwa = htmlspecialchars($_POST['nazwa']);
     $matka = (int) $_POST['matka'];
@@ -22,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
     }
 }
 
-// Отримання списку категорій
 $stmt = $link->query("SELECT id, nazwa FROM categories");
 $categories = $stmt->fetch_all(MYSQLI_ASSOC);
 ?>
@@ -59,7 +57,7 @@ $categories = $stmt->fetch_all(MYSQLI_ASSOC);
             <button type="submit" name="add">Dodaj kategorię</button>
         </form>
         <div class="button back-button">
-            <a href="/admin/manage_categories.php">Zarządzaj podstronami</a>
+            <a href="/admin/manage_categories.php">Powrót</a>
         </div>
     </main>
     <footer>

@@ -3,15 +3,13 @@ error_reporting(E_ALL ^ E_NOTICE ^ E_WARNING);
 include('cfg.php');
 include('showpage.php');
 
-// Динамічна логіка для контактної сторінки
 $idp = isset($_GET['idp']) ? $_GET['idp'] : 'glowna';
 
 if ($idp === 'contact') {
-    include('сontact.php'); // Завантаження класу Contact
+    include('сontact.php');
     $contact = new Contact();
 }
 
-// Мапа сторінок
 $page_ids = [
     'glowna' => 1,
     'history' => 'html/history.html',
@@ -22,16 +20,15 @@ $page_ids = [
     'movies' => 'html/movies.html'
 ];
 
-// Генерація контенту
 if ($idp === 'glowna') {
     $page_id = $page_ids['glowna'];
     $strona = PokazPodstrone($page_id);
 } elseif ($idp === 'contact') {
     ob_start();
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
-        $contact->WyslijMailKontakt(); // Обробка форми
+        $contact->WyslijMailKontakt();
     } else {
-        $contact->PokazKontakt(); // Показ форми
+        $contact->PokazKontakt();
     }
     $strona = ob_get_clean();
 } else {
@@ -55,11 +52,6 @@ if ($idp === 'glowna') {
     <title>Filmy Oskarowe</title>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script>
-        if (typeof jQuery === 'undefined') {
-            document.write('<script src="path/to/local/jquery.min.js"><\/script>');
-        }
-    </script>
 </head>
 
 <body>

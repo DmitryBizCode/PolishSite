@@ -4,7 +4,6 @@ require_once '../cfg.php';
 require_once '../classes/Auth.php';
 require_once '../classes/PageManager.php';
 
-// Перевірка авторизації
 if (!Auth::isLoggedIn()) {
     header("Location: login.php");
     exit;
@@ -56,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit">Dodaj podstronę</button>
         </form>
         <div class="button back-button">
-            <a href="/admin/manage_pages.php">Zarządzaj podstronami</a>
+            <a href="/admin/manage_pages.php">Powrót</a>
         </div>
     </main>
     <footer>

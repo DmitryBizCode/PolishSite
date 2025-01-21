@@ -4,7 +4,6 @@ require_once '../cfg.php';
 require_once '../classes/Auth.php';
 require_once '../classes/PageManager.php';
 
-// Перевірка авторизації
 if (!Auth::isLoggedIn()) {
     header("Location: login.php");
     exit;
@@ -64,8 +63,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <button type="submit">Zapisz zmiany</button>
         </form>
-        <a href="manage_pages.php" class="button back-button">Zarządzaj podstronami</a>
-
+        <div class="back-button">
+            <a href="manage_pages.php">Powrót</a>
+        </div>
     </main>
     <footer>
         <p>&copy; 2025 Panel CMS</p>

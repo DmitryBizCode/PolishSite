@@ -11,7 +11,6 @@ if (!Auth::isLoggedIn()) {
 
 $productManager = new ProductManager($link);
 
-// Видалення продукту
 if (isset($_GET['delete'])) {
     if ($productManager->deleteProduct($_GET['delete'])) {
         $success = "Produkt został usunięty.";
@@ -19,15 +18,16 @@ if (isset($_GET['delete'])) {
         $error = "Błąd podczas usuwania produktu.";
     }
 }
+
+$products = $productManager->showProducts();
 ?>
 
 <!DOCTYPE html>
 <html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zarządzaj produktami</title>
-    <link rel="stylesheet" href="/css/admin_products.css">
+    <link rel="stylesheet" href="../css/admin_manage_products.css">
 </head>
 <body>
 <div class="container">
@@ -37,7 +37,6 @@ if (isset($_GET['delete'])) {
     <main>
         <?php if (isset($success)) echo "<p class='success'>$success</p>"; ?>
         <?php if (isset($error)) echo "<p class='error'>$error</p>"; ?>
-
         <table>
             <thead>
             <tr>
@@ -45,41 +44,33 @@ if (isset($_GET['delete'])) {
                 <th>Tytuł</th>
                 <th>Kategoria</th>
                 <th>Cena netto</th>
+                <th>Podatek VAT</th>
+                <th>Ilość</th>
                 <th>Status</th>
                 <th>Akcje</th>
             </tr>
             </thead>
             <tbody>
-            <?php
-            $result = $link->query("SELECT * FROM product ORDER BY data_utworzenia DESC");
-            if ($result->num_rows > 0):
-                while ($row = $result->fetch_assoc()):
-                    ?>
-                    <tr>
-                        <td><?= $row['id'] ?></td>
-                        <td><?= htmlspecialchars($row['tytul']) ?></td>
-                        <td><?= htmlspecialchars($row['kategoria']) ?></td>
-                        <td><?= number_format($row['cena_netto'], 2) ?> PLN</td>
-                        <td><?= htmlspecialchars($row['status_dostepnosci']) ?></td>
-                        <td>
-                            <a class="action-link edit" href="edit_product.php?id=<?= $row['id'] ?>">Edytuj</a>
-                            <a class="action-link delete" href="manage_products.php?delete=<?= $row['id'] ?>" onclick="return confirm('Czy na pewno chcesz usunąć ten produkt?');">Usuń</a>
-                        </td>
-                    </tr>
-                <?php
-                endwhile;
-            else:
-                ?>
+            <?php foreach ($products as $product): ?>
                 <tr>
-                    <td colspan="6" class="no-products">Brak produktów w bazie danych.</td>
+                    <td><?= $product['id'] ?></td>
+                    <td><?= $product['title'] ?></td>
+                    <td><?= $product['category_name'] ?></td>
+                    <td><?= $product['net_price'] ?></td>
+                    <td><?= $product['vat_rate'] * 100 ?>%</td>
+                    <td><?= $product['stock'] ?></td>
+                    <td><?= $product['availability_status'] ? 'Dostępny' : 'Niedostępny' ?></td>
+                    <td>
+                        <a class="action-link edit" href="edit_product.php?id=<?= $product['id'] ?>">Edytuj</a>
+                        <a class="action-link delete" href="?delete=<?= $product['id'] ?>" onclick="return confirm('Czy na pewno chcesz usunąć?');">Usuń</a>
+                    </td>
                 </tr>
-            <?php endif; ?>
+            <?php endforeach; ?>
             </tbody>
         </table>
-
         <div class="actions">
-            <a class="button add-product" href="add_product.php">Dodaj nowy produkt</a>
-            <a class="button logout" href="logout.php">Wyloguj</a>
+            <a class="button add-category" href="add_product.php">Dodaj nową kategorię</a>
+            <a class="button logout" href="index.php">Powrót</a>
         </div>
     </main>
     <footer>

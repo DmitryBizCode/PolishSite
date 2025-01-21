@@ -4,7 +4,6 @@ require_once '../cfg.php';
 require_once '../classes/Auth.php';
 require_once '../classes/PageManager.php';
 
-// Перевірка авторизації
 if (!Auth::isLoggedIn()) {
     header("Location: login.php");
     exit;
