@@ -21,8 +21,7 @@ $page_ids = [
 ];
 
 if ($idp === 'glowna') {
-    $page_id = $page_ids['glowna'];
-    $strona = PokazPodstrone($page_id);
+    $strona = PokazPodstrone();
 } elseif ($idp === 'contact') {
     ob_start();
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['submit'])) {
