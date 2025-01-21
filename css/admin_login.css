@@ -1,0 +1,118 @@
+/* Загальні стилі */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Контейнер форми входу */
+.login-container {
+    background: #ffffff;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    animation: slideIn 0.6s ease-in-out;
+}
+
+/* Заголовок */
+.login-container h1 {
+    font-size: 2rem;
+    color: #00796b;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    animation: fadeInText 1s ease;
+}
+
+/* Повідомлення про помилки */
+.login-container p {
+    color: #d32f2f;
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+/* Поля вводу */
+.login-container input[type="text"],
+.login-container input[type="password"] {
+    width: 100%;
+    padding: 15px;
+    margin: 10px 0 20px;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    font-size: 1rem;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #f8f9fa;
+    box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.login-container input[type="text"]:focus,
+.login-container input[type="password"]:focus {
+    border-color: #00796b;
+    outline: none;
+    box-shadow: 0 0 8px rgba(0, 121, 107, 0.4);
+}
+
+/* Кнопка входу */
+.login-container button {
+    background: linear-gradient(to right, #00796b, #004d40);
+    color: #ffffff;
+    border: none;
+    padding: 15px 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.3s ease;
+    width: 100%;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.login-container button:hover {
+    background: linear-gradient(to right, #004d40, #002a22);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Етикетки (label) */
+.login-container label {
+    display: block;
+    text-align: left;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 0.9em;
+}
+
+/* Анімація */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        letter-spacing: 0;
+    }
+    to {
+        opacity: 1;
+        letter-spacing: 1.5px;
+    }
+}

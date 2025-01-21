@@ -1,0 +1,121 @@
+/* Загальні стилі */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #e0f7fa, #ffffff);
+    color: #333;
+    line-height: 1.6;
+}
+
+/* Контейнер */
+.container {
+    width: 90%;
+    max-width: 900px;
+    margin: 50px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    padding: 30px 40px;
+    animation: slideIn 0.6s ease-in-out;
+}
+
+/* Заголовок */
+header {
+    background: linear-gradient(to right, #00796b, #004d40);
+    color: #ffffff;
+    padding: 30px 20px;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2.6rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    animation: fadeInText 1s ease;
+}
+
+/* Анімація */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInText {
+    from {
+        opacity: 0;
+        letter-spacing: 0;
+    }
+    to {
+        opacity: 1;
+        letter-spacing: 1.5px;
+    }
+}
+
+/* Основний блок */
+main {
+    text-align: center;
+    margin: 20px 0;
+}
+
+/* Кнопки */
+.actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.button {
+    text-decoration: none;
+    padding: 15px 20px;
+    border-radius: 12px;
+    background: linear-gradient(to right, #007bff, #0056b3);
+    color: #ffffff;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Кнопка "Zarządzaj podstronami" */
+.button.manage {
+    background: linear-gradient(to right, #007bff, #0056b3);
+}
+
+.button.manage:hover {
+    background: linear-gradient(to right, #0056b3, #003d80);
+}
+
+/* Кнопка "Wyloguj" */
+.button.logout {
+    background: linear-gradient(to right, #d32f2f, #b71c1c);
+}
+
+.button.logout:hover {
+    background: linear-gradient(to right, #b71c1c, #7f0000);
+}
+
+/* Футер */
+footer {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 0.9em;
+    color: #666;
+    padding: 10px;
+}
